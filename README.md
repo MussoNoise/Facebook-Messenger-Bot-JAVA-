@@ -272,5 +272,10 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
 	    	String Sender=tmp[7].substring(0, 16);
 	    	return Sender;
 	    }
-}
+     }
 </details>
+
+Ed otterremo come risultato questo:
+
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/TestBot.png)
+
