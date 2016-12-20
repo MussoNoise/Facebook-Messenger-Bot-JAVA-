@@ -6,11 +6,15 @@ L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger 
 **Strumenti utilizzati: **
 
 1.Ecpliple Mars 2.0
+
 2.Plug-in di Google App engine per Eclipse
 
 **Prerequisiti:**
+
 1. Un’account developer Facebook (https://developers.facebook.com).Puoi semplicemente loggare con le tue credenziali Facebook.
+
 2. Una pagina Facebook
+
 3. Conoscenze di Java ed in particolare su come caricare un’applicazione Java su un dominio Google usando il Google App Engine plug-in per Eclipse. 
 
 **Funzionamento generale:**
@@ -54,7 +58,7 @@ Ricorda di inserire il tuo project ID, puoi comunque farlo in un secondo momento
 	           }
 			}
 		}
-        </details>
+</details>
 	
 Il codice svolge esattamente le operazioni descritte in precedenza, in caso di chiamata Get, viene acquisito il testo della richiesta,e nel caso che non sia nulla,procede salvando i parametri passati nella richiesta get.Il secondo controllo serve per verificare che il verifytoken impostato su facebook (vedi paragrafo successivo) sia uguale a “verify”.Se tutti i controlli vanno a buon fine il nostro webhook risponde con il valore di hub.challenge.
 A questo punto dobbiamo effettivamente comunicare a Facebook l’URL del nostro webhook:
