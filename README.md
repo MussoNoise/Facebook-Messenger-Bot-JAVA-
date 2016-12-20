@@ -9,7 +9,7 @@ L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger 
 
 2.Plug-in di Google App engine per Eclipse
 
-3.Advance Rest Client([ARC](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo).
+3.Advance Rest Client([ARC](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo))
 
 **Prerequisiti:**
 
@@ -108,7 +108,7 @@ Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ �
 
 Se estrapoliamo i campi “text” e “id” saremo in grado di eleborare una risposta in base al testo inviato dall’utente e di rinviarlo indietro all’id utente corretto. Ci sono vari modi per dividere un JSON, comprese [librerie java apposite](http://codingjam.it/gson-da-java-a-json-e-viceversa-primi-passi/). Personalmente per includere meno librerie esterne possibili ho semplicemente diviso il messaggio JSON usando semplici funzioni (Split,substring etc..). Salvare il body di una chiamata POST come stringa non è immediato, infatti dobbiamo convertire il flusso di byte in Stringa:
 
-***CODE ***  (By StackOverflow)
+***CODE ***  (By [StackOverflow](http://stackoverflow.com/questions/309424/read-convert-an-inputstream-to-a-string))
 
     public String StreamToString(final InputStream is, final int bufferSize) {
     //Trasforma il flusso di byte proveniente dallo Stream in Stringa
@@ -300,7 +300,7 @@ Vediamo nel dettaglio come funziona:
 Invio una richiesta POST a https://api.api.ai/v1/query?v=20150910 e analizzo la risposta.
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC1.png)
-
+Il codice di autenticazione lo puoi ottenere seguendo questa **[guida ufficiale](https://docs.api.ai/docs/authentication)**.
 ottengo come risposta un JSON:
 
 <details> 
