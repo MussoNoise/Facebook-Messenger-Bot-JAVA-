@@ -105,8 +105,7 @@ Se estrapoliamo i campi “text” e “id” saremo in grado di eleborare una r
 
 ***CODE ***  (By StackOverflow)
 
-<details> 
-  <summary>Mostra Codice:</summary>
+
     public String StreamToString(final InputStream is, final int bufferSize) {
     //Trasforma il flusso di byte proveniente dallo Stream in Stringa
 	    final char[] buffer = new char[bufferSize];
@@ -127,7 +126,8 @@ Se estrapoliamo i campi “text” e “id” saremo in grado di eleborare una r
 	    }
 	    return out.toString();
 	}
-ù</details>
+	
+
     
 Il nostro programma a questo punto avrà quindi questa macrostruttura:
 
