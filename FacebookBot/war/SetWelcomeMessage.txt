@@ -1,0 +1,13 @@
+to:
+https://graph.facebook.com/v2.6/1351977348146968/thread_settings?access_token=%token%
+
+Raw headers:
+Content-Type: application/json
+
+payload:
+{
+  "setting_type":"greeting",
+  "greeting":{
+    "text":".....text...."
+  }
+}
