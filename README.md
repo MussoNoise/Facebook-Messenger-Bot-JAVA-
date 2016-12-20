@@ -21,7 +21,7 @@ L’idea di fondo è semplice, quando un’utente invia un messaggio alla pagina
 [(https://developers.facebook.com/docs/messenger-platform/guides/quick-start]((https://developers.facebook.com/docs/messenger-platform/guides/quick-start))
 La guida ufficiale di facebook è ben dettagliata e spiega esattamente come creare un’applicazione Facebook. Il problema è che il linguaggio di programmazione usato in tutte le guide ufficiali è il Node.js. L’obiettivo di questa guida è quello di creare un Bot di Facebook Messenger interamente in Java, quindi vediamo passo passo come configurare al meglio l’applicazione:
 Innanzitutto crea un’applicazione Facebook e una pagina Facebook. Nella Dashboard della tua applicazione clicca su “Aggiungi prodotto” e abilita Messenger.
-![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/blob/master/Img/AbilitaMSN.png)
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/AbilitaMSN.png)
 
 **Configurazione Webhook:**
 
@@ -253,7 +253,6 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
 	    }
 }
 </details>
-
 
 
 
