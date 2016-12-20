@@ -221,7 +221,7 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
 		 OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(),"UTF-8");  
 		 if(JSON.contains("message")){ 
 		 String finalText=getText(JSON);
-		 out.write("{\"recipient\":{\"id\":\""+getSender(JSON)+"\"},\"message\":                   {\"text\":\""+finalText+"\"}}");
+		 out.write("{\"recipient\":{\"id\":\""+getSender(JSON)+"\"},\"message\":{\"text\":\""+finalText+"\"}}");
 		 out.flush(); 
 		 out.close();  
 		 int res = connection.getResponseCode();
@@ -282,7 +282,7 @@ Il sito offre moltissime possibilità,vediamo nel dettaglio solo la funzione "In
 Un'intent è una funzione che lega il testo inserito da un'user,con una risposta da inviargli.
 In pratica creare un nuovo Intent vuol dire "insegnare" al bot a rispondere in un determinato modo ad una certa domanda.Immaginiamo di creare un Bot che oltre a tutte le funzioni fornite di defaul da API.AI,registri le prenotazioni di un ristorante.Creaiamo un nuovo intent con questa forma:
 
-**img
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/Intent.png)
 
 A questo punto il Bot ha "appreso" a riconoscere una prenotazione. Il funzionamento è intuitivo,se il programma legge date/ore nelle stesse frasi di altri indicatori come "tavolo" "prenoto" etc.,capisce che il testo inserito è una richiesta di prenotazione.
 
@@ -291,19 +291,18 @@ Vediamo nel dettaglio come funziona:
 Per gestire meglio l'invio e la gestione della risposta remota uso un'estensione di Google Chrome,[ARQ](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo).
 Invio una richiesta POST a https://api.api.ai/v1/query?v=20150910 e analizzo la risposta.
 
-**img1
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC1.png)
 
 ottengo come risposta un JSON:
 
 <details> 
   <summary>JSON</summary>
-  **IMG 2
+  ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC2.png)
   </details>
   
   Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo sceggliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
 
-**IMG1
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot1.png)
 
-**IMG2
-
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot2.png)
 
