@@ -310,7 +310,5 @@ ottengo come risposta un JSON:
   
   Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo scegliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
 
-![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot1.png)
-
-![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot2.png)
+![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot1.png)![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot2.png)
 
