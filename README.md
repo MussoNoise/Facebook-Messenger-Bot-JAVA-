@@ -66,12 +66,12 @@ Per il nostro progetto basta spuntare “messages” “messaging_postback” �
 Se tutto va buon fine comparirà una schermata di questo tipo:
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/HookSetted.png)
+
 N.B.
 Perché ho usato 1-dot-facebottest88.appspot.com/… ??
 Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione non andrà mai a buon fine, questo perché Facebook non riesce a leggere il certificato SSL di questo dominio. Invece, inserendo 1-dot- funzionerà tutto correttamente, dopo aver aggiunto questo codice nel file web.xml del nostro progetto:
-<details> 
-  <summary>Mostra Codice:</summary>
-    <security-constraint>
+
+     <security-constraint>
     <web-resource-collection>
         <web-resource-name>everything</web-resource-name>
         <url-pattern>/*</url-pattern>
@@ -80,7 +80,7 @@ Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione no
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
     </security-constraint>
-</details>
+
 Questo accade solo con le autenticazioni di Facebook,infatti altri servizi famosi come Telegram riescono a verificare immediatamente domini classici www.%nomeSito%.appspot.com
 
 Fonte:
