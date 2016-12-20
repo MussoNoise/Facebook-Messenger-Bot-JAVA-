@@ -6,15 +6,11 @@ L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger 
 **Strumenti utilizzati: **
 
 1.Ecpliple Mars 2.0
-
 2.Plug-in di Google App engine per Eclipse
 
 **Prerequisiti:**
-
 1. Un’account developer Facebook (https://developers.facebook.com).Puoi semplicemente loggare con le tue credenziali Facebook.
-
 2. Una pagina Facebook
-
 3. Conoscenze di Java ed in particolare su come caricare un’applicazione Java su un dominio Google usando il Google App Engine plug-in per Eclipse. 
 
 **Funzionamento generale:**
@@ -58,8 +54,7 @@ Ricorda di inserire il tuo project ID, puoi comunque farlo in un secondo momento
 	           }
 			}
 		}
-</details>
-	
+        </details>
 Il codice svolge esattamente le operazioni descritte in precedenza, in caso di chiamata Get, viene acquisito il testo della richiesta,e nel caso che non sia nulla,procede salvando i parametri passati nella richiesta get.Il secondo controllo serve per verificare che il verifytoken impostato su facebook (vedi paragrafo successivo) sia uguale a “verify”.Se tutti i controlli vanno a buon fine il nostro webhook risponde con il valore di hub.challenge.
 A questo punto dobbiamo effettivamente comunicare a Facebook l’URL del nostro webhook:
 Nella dashboard della tua applicazione clicca su “configura Webhook”:
@@ -74,7 +69,6 @@ Se tutto va buon fine comparirà una schermata di questo tipo:
 N.B.
 Perché ho usato 1-dot-facebottest88.appspot.com/… ??
 Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione non andrà mai a buon fine, questo perché Facebook non riesce a leggere il certificato SSL di questo dominio. Invece, inserendo 1-dot- funzionerà tutto correttamente, dopo aver aggiunto questo codice nel file web.xml del nostro progetto:
-
 <details> 
   <summary>Mostra Codice:</summary>
     <security-constraint>
@@ -87,7 +81,6 @@ Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione no
     </user-data-constraint>
     </security-constraint>
 </details>
-
 Questo accade solo con le autenticazioni di Facebook,infatti altri servizi famosi come Telegram riescono a verificare immediatamente domini classici www.%nomeSito%.appspot.com
 
 Fonte:
@@ -108,8 +101,8 @@ Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ �
 Se estrapoliamo i campi “text” e “id” saremo in grado di eleborare una risposta in base al testo inviato dall’utente e di rinviarlo indietro all’id utente corretto. Ci sono vari modi per dividere un JSON, comprese [librerie java apposite](http://codingjam.it/gson-da-java-a-json-e-viceversa-primi-passi/). Personalmente per includere meno librerie esterne possibili ho semplicemente diviso il messaggio JSON usando semplici funzioni (Split,substring etc..). Salvare il body di una chiamata POST come stringa non è immediato, infatti dobbiamo convertire il flusso di byte in Stringa:
 
 ***CODE ***  (By StackOverflow)
-
-
+<details> 
+  <summary>Mostra Codice:</summary>
     public String StreamToString(final InputStream is, final int bufferSize) {
     //Trasforma il flusso di byte proveniente dallo Stream in Stringa
 	    final char[] buffer = new char[bufferSize];
@@ -130,8 +123,7 @@ Se estrapoliamo i campi “text” e “id” saremo in grado di eleborare una r
 	    }
 	    return out.toString();
 	}
-	
-
+    </details>
     
 Il nostro programma a questo punto avrà quindi questa macrostruttura:
 
@@ -272,10 +264,46 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
 	    	String Sender=tmp[7].substring(0, 16);
 	    	return Sender;
 	    }
-     }
+    } 
 </details>
 
-Ed otterremo come risultato questo:
+ed otterremo come risultato questo:
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/TestBot.png)
+
+
+**Integrazione con il NLP**
+
+Tramile il [Natural Lenguage Processing](https://it.wikipedia.org/wiki/Elaborazione_del_linguaggio_naturale) noi possiamo creare applicazzioni piu' complesse che leggono in modo "intelligente" il testo inviato da un utente. Ad esempio,se io volessi chiedere la data odierna al mio Bot,potrei formulare la domanda in molti modi differenti,e il Bot riuscirebbe comunque ad estrapolare dalla mia domanda delle parole chiavi che lo porterebbero a rispondere correttamente. Ci sono apllicazioni Online Gratuite che offrono un numero finito di istanze,comunque sufficienti per i nostri intenti,che elaborando un testo,riescono a compiere l'operazione descritta in precedenza,ovvero capire il contesto della frase ed elaborare di conseguenza una risposta sensata.
+
+Prendiamo ad esempio **[API.AI](https://console.api.ai/api-client/)**:
+
+Il sito offre moltissime possibilità,vediamo nel dettaglio solo la funzione "Intents":
+Un'intent è una funzione che lega il testo inserito da un'user,con una risposta da inviargli.
+In pratica creare un nuovo Intent vuol dire "insegnare" al bot a rispondere in un determinato modo ad una certa domanda.Immaginiamo di creare un Bot che oltre a tutte le funzioni fornite di defaul da API.AI,registri le prenotazioni di un ristorante.Creaiamo un nuovo intent con questa forma:
+
+**img
+
+A questo punto il Bot ha "appreso" a riconoscere una prenotazione. Il funzionamento è intuitivo,se il programma legge date/ore nelle stesse frasi di altri indicatori come "tavolo" "prenoto" etc.,capisce che il testo inserito è una richiesta di prenotazione.
+
+Vediamo nel dettaglio come funziona: 
+
+Per gestire meglio l'invio e la gestione della risposta remota uso un'estensione di Google Chrome,[ARQ](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo).
+Invio una richiesta POST a https://api.api.ai/v1/query?v=20150910 e analizzo la risposta.
+
+**img1
+
+ottengo come risposta un JSON:
+
+<details> 
+  <summary>JSON</summary>
+  **IMG 2
+  </details>
+  
+  Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo sceggliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
+
+**IMG1
+
+**IMG2
+
 
