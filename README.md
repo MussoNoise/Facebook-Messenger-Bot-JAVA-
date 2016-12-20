@@ -6,12 +6,22 @@ L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger 
 **Strumenti utilizzati: **
 
 1.Ecpliple Mars 2.0
+
 2.Plug-in di Google App engine per Eclipse
 
+3.Advance Rest Client([ARC](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo).
+
 **Prerequisiti:**
+
 1. Un’account developer Facebook (https://developers.facebook.com).Puoi semplicemente loggare con le tue credenziali Facebook.
+
 2. Una pagina Facebook
+
 3. Conoscenze di Java ed in particolare su come caricare un’applicazione Java su un dominio Google usando il Google App Engine plug-in per Eclipse. 
+** Nota Generale ai Bot Facebook **
+
+Per poter rendere pubbliche le proprie applicazioni Facebook,lo staff di Facebook deve approvarle,ovvero deve verificare che l'applicazione rispetti le loro regole. Nel portale Facebook Developers ci sono informazione esaustive per fare questo.
+Un'altra cosa da sapere prima di iniziare a programmare Bot di messaggistica automatica è che in nessun caso un Bot puo' iniziare una conversazione con un'utente! Prima di tutto il bot deve essere interpellato da un'utente e in secondo momento esso puo' risposponde qualcosa. 
 
 **Funzionamento generale:**
 
@@ -81,8 +91,6 @@ Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione no
     </user-data-constraint>
     </security-constraint>
 
-Questo accade solo con le autenticazioni di Facebook,infatti altri servizi famosi come Telegram riescono a verificare immediatamente domini classici www.%nomeSito%.appspot.com
-
 Fonte:
 https://cloud.google.com/appengine/docs/java/config/webxml#Secure_URLs
 
@@ -94,7 +102,7 @@ L’applicazione è ora correttamente impostata Facebook side,ma effettivamente 
 
 **Gestione Eventi Provenienti da FB:**
 
-Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ “Evento”.Questo Evento può essere di vario tipo, noi in questa guida ci soffermiamo solamente sulla gestione di Eventi testuali.  Vediamo dunque come funziona tecnicamente come gestire questi eventi: Se l’utente “F.Mussini” invia “prova” alla nostra pagina FB, la pagina a sua volta compie una chiamata POST passando come body un messaggio testuale serializzato in [JSON](https://it.wikipedia.org/wiki/JavaScript_Object_Notation) di questo tipo:
+Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ “Evento”.Questo Evento può essere di vario tipo, noi in questa guida ci soffermiamo solamente sulla gestione di Eventi testuali.  Vediamo dunque tecnicamente come gestire questi eventi: Se l’utente “F.Mussini” invia “prova” alla nostra pagina FB, la pagina a sua volta compie una chiamata POST passando come body un messaggio testuale serializzato in [JSON](https://it.wikipedia.org/wiki/JavaScript_Object_Notation) di questo tipo:
 
 {object:page,entry:[{id:967683980042454,time:1480516467930,messaging:[{sender:{id:1212697882118340},recipient:{id:967683980042454},timestamp:1480516467899,message:{mid:mid.1480516467899:d81e516520,seq:2042,text:prova}}]}]}	
 
@@ -178,9 +186,10 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
     ..  //metodo per l’autenticazione del webhook  (Presentato nella sezione webhook)
      }
     doPost{
-    Chiamata a StreamToString per salvare il JSON della richiesta;  //presentato prima  
-    Chiamata ad un metodo per salvare il testo inviato dall’utente nel JSON;  
-    Chiamata ad un metodo per salvare l’id del mittente;                                                     
+    Chiamata callback a StreamToString per salvare il JSON della richiesta;  //presentato prima  
+    Chiamata callback ad un metodo per salvare il testo inviato dall’utente nel JSON;  
+    Chiamata callback ad un metodo per salvare l’id del mittente;  
+    POST verso FB
     }  
 <details> 
   <summary>Codice Completo:</summary>
@@ -264,6 +273,7 @@ A questo punto abbiamo tutte le informazione per scrivere il nostro primo Bot co
 	    	return Sender;
 	    }
     } 
+    
 </details>
 
 ed otterremo come risultato questo:
@@ -273,21 +283,20 @@ ed otterremo come risultato questo:
 
 **Integrazione con il NLP**
 
-Tramile il [Natural Lenguage Processing](https://it.wikipedia.org/wiki/Elaborazione_del_linguaggio_naturale) noi possiamo creare applicazzioni piu' complesse che leggono in modo "intelligente" il testo inviato da un utente. Ad esempio,se io volessi chiedere la data odierna al mio Bot,potrei formulare la domanda in molti modi differenti,e il Bot riuscirebbe comunque ad estrapolare dalla mia domanda delle parole chiavi che lo porterebbero a rispondere correttamente. Ci sono apllicazioni Online Gratuite che offrono un numero finito di istanze,comunque sufficienti per i nostri intenti,che elaborando un testo,riescono a compiere l'operazione descritta in precedenza,ovvero capire il contesto della frase ed elaborare di conseguenza una risposta sensata.
+Tramile il [Natural Lenguage Processing](https://it.wikipedia.org/wiki/Elaborazione_del_linguaggio_naturale) possiamo creare applicazioni piu' complesse che leggono in modo "intelligente" il testo inviato da un utente. Ad esempio,se io volessi chiedere la data odierna al mio Bot,potrei formulare la domanda in molti modi differenti,e il Bot riuscirebbe comunque ad estrapolare dalla mia domanda delle parole chiavi che lo porterebbero a rispondere correttamente. Ci sono apllicazioni Online Gratuite che offrono un numero finito di istanze,comunque sufficienti per i nostri intenti,che elaborando un testo,riescono a compiere l'operazione descritta in precedenza.
 
 Prendiamo ad esempio **[API.AI](https://console.api.ai/api-client/)**:
 
 Il sito offre moltissime possibilità,vediamo nel dettaglio solo la funzione "Intents":
 Un'intent è una funzione che lega il testo inserito da un'user,con una risposta da inviargli.
-In pratica creare un nuovo Intent vuol dire "insegnare" al bot a rispondere in un determinato modo ad una certa domanda.Immaginiamo di creare un Bot che oltre a tutte le funzioni fornite di defaul da API.AI,registri le prenotazioni di un ristorante.Creaiamo un nuovo intent con questa forma:
+In pratica creare un nuovo Intent vuol dire "insegnare" al bot a rispondere in un determinato modo ad una certa domanda.Immaginiamo di creare un Bot che oltre a tutte le funzioni fornite di default da API.AI,registri le prenotazioni di un ristorante.Creiamo un nuovo intent con questa forma:
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/Intent.png)
 
-A questo punto il Bot ha "appreso" a riconoscere una prenotazione. Il funzionamento è intuitivo,se il programma legge date/ore nelle stesse frasi di altri indicatori come "tavolo" "prenoto" etc.,capisce che il testo inserito è una richiesta di prenotazione.
+A questo punto il Bot ha "imparato" a riconoscere una prenotazione. Il funzionamento è intuitivo,se il programma legge date/ore nelle stesse frasi di altri indicatori come "tavolo" "prenoto" etc.,capisce che il testo inserito è una richiesta di prenotazione.
 
 Vediamo nel dettaglio come funziona: 
 
-Per gestire meglio l'invio e la gestione della risposta remota uso un'estensione di Google Chrome,[ARQ](https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo).
 Invio una richiesta POST a https://api.api.ai/v1/query?v=20150910 e analizzo la risposta.
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC1.png)
@@ -299,7 +308,7 @@ ottengo come risposta un JSON:
   ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC2.png)
   </details>
   
-  Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo sceggliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
+  Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo scegliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot1.png)
 
