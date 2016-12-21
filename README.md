@@ -103,7 +103,7 @@ L’applicazione è ora correttamente impostata Facebook side,ma effettivamente 
 
 **Gestione Eventi Provenienti da FB:**
 
-Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ “Evento”.Questo Evento può essere di vario tipo, noi in questa guida ci soffermiamo solamente sulla gestione di Eventi testuali.  Vediamo dunque tecnicamente come gestire questi eventi: Se l’utente “F.Mussini” invia “prova” alla nostra pagina FB, la pagina a sua volta compie una chiamata POST passando come body un messaggio testuale serializzato in [JSON](https://it.wikipedia.org/wiki/JavaScript_Object_Notation) di questo tipo:
+Quando un utente invia un messaggio alla nostra pagina FB, facebook crea un’ “Evento”.Questo Evento può essere di vario tipo, noi in questa guida ci soffermiamo solamente sulla gestione di Eventi testuali.  Vediamo dunque tecnicamente come gestire questi eventi: Se l’utente “F.Mussini” invia “prova” alla nostra pagina FB, la pagina a sua volta compie una chiamata POST verso il nostro Hook passando come body un messaggio testuale serializzato in [JSON](https://it.wikipedia.org/wiki/JavaScript_Object_Notation) di questo tipo:
 
 {object:page,entry:[{id:967683980042454,time:1480516467930,messaging:[{sender:{id:1212697882118340},recipient:{id:967683980042454},timestamp:1480516467899,message:{mid:mid.1480516467899:d81e516520,seq:2042,text:prova}}]}]}	
 
