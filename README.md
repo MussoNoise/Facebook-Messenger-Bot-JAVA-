@@ -93,6 +93,7 @@ Se inseriamo il dominio completo www.facebottest88.appspot.com la validazione no
     </user-data-constraint>
     </security-constraint>
 
+Questo succede perchè evidentemente esistono problemi di compatibilità tra i domini appspot(Google) e Facebook.
 Fonte:
 https://cloud.google.com/appengine/docs/java/config/webxml#Secure_URLs
 
