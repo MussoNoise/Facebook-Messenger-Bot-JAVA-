@@ -19,6 +19,7 @@ L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger 
 2. Una pagina Facebook
 
 3. Conoscenze di Java ed in particolare su come caricare un’applicazione Java su un dominio Google usando il Google App Engine plug-in per Eclipse. 
+
 ** Nota Generale ai Bot Facebook **
 
 Per poter rendere pubbliche le proprie applicazioni Facebook,lo staff di Facebook deve approvarle,ovvero deve verificare che l'applicazione rispetti le loro regole. Nel portale Facebook Developers ci sono informazione esaustive per fare questo.
