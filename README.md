@@ -3,7 +3,8 @@
 **Obiettivo:**
 
 L’obiettivo di questa guida è quello di creare un bot per Facebook Messenger in Java. Questo Bot sarà supportato da funzioni di NLP (natural Language programming) grazie ad [API.ai](https://console.api.ai/api-client/).
-**Strumenti utilizzati: **
+
+**Strumenti utilizzati:**
 
 1.Ecpliple Mars 2.0
 
@@ -308,7 +309,11 @@ ottengo come risposta un JSON:
   ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/ARC2.png)
   </details>
   
-  Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo scegliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente.
+  Dal JSON si capisce esattamente come lavora API.AI;La frase viene categorizzata in un'Intent (se esiste),nel nostro caso "Prenotazione" ed estae i parametri chiave (date e time),poi comunica anche come avrebbe risposto: "speech":"Prnotazione registrata".A questo punto noi possiamo scegliere come utilizzare queste informazioni,potrei ad esempio integrare una chiamata ad API.AI nel nostro Bot per Facebook Messenger. Basta inviare il testo inviato dall'utente alla nostra pagina ad API.AI,salvare la risposta testuale che ci viene proposta,e inviarla all'utente mittente. Il programma completo ed interamente commentato è scaricabile da questa pagina cliccando su "Clone or Download-->salva come zip". Per importare il progetto apri Eclipse-->File-->Import-->Existing Project into..-->seleziona il percorso dove hai scaricato il progetto;
+  
+ A questo punto non ti resta che inserire il Token Facebook e di API.API nei punti giusti del codice e di caricare tutto sul tuo progetto Google App Engine.Dopo aver correttamente impostato l'applicazione su facebook (webhook etc..) otterrai come risultato questo:
+ 
+
 
 ![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot1.png)![alt tag](https://raw.githubusercontent.com/MussoNoise/Facebook-Messenger-Bot-JAVA-/master/Img/FinalBot2.png)
 
